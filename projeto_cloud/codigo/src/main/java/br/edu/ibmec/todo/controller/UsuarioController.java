@@ -25,13 +25,8 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody Usuario usuario) {
-        Usuario usuarioCriado = usuarioService.salvarUsuario(usuario);
+        Usuario usuarioCriado = usuarioService.criarUsuario(usuario);
         return new ResponseEntity<>(usuarioCriado, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios() {
-        List<Usuario> usuarios = usuarioService.listarUsuarios();
-        return new ResponseEntity<>(usuarios, HttpStatus.OK);
-    }
 }
