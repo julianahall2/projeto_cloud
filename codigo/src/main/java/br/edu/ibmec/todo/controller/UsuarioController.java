@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+
 import jakarta.validation.Valid;
 import java.util.List;
 
@@ -25,9 +27,14 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody Usuario usuario) {
-        Usuario usuarioCriado = usuarioService.salvarUsuario(usuario);
-        return new ResponseEntity<>(usuarioCriado, HttpStatus.CREATED);
+        try {
+            Usuario usuarioCriado = usuarioService.salvarUsuario(usuario);
+            return new ResponseEntity<>(usuarioCriado, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
+
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios() {
