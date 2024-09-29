@@ -1,31 +1,54 @@
 package br.edu.ibmec.todo.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+@Entity
 public class Usuario {
-    
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @NotBlank(message = "O id é obrigatório")
     private UUID id;
 
+    @Column
     @NotBlank(message = "O nome é obrigatório")
     private String nome;
 
+    @Column
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "E-mail inválido")
     private String email;
 
+    @Column
     @NotBlank(message = "A senha é obrigatória")
     private String senha;
 
+    @Column
     @NotBlank(message = "O CPF é obrigatório")
     private String cpf;
 
+    @Column
     @NotBlank(message = "A data de nascimento é obrigatória")
     private LocalDateTime dataNasc;
+
+    @OneToMany
+    @JoinColumn(referencedColumnName = "id", name = "usuario_id")
+    private List<Cartao> cartoes;
+
+    public void associarCartao(Cartao cartao) {
+        this.cartoes.add(cartao);
+    }
 
     // Getters e Setters
 
@@ -77,7 +100,4 @@ public class Usuario {
         this.dataNasc = dataNasc;
     }
 
-    public void associarCartao(Cartao cartao) {
-        throw new UnsupportedOperationException("Unimplemented method 'associarCartao'");
-    }
 }
