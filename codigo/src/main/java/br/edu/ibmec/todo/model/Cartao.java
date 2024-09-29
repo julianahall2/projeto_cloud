@@ -1,7 +1,7 @@
 package br.edu.ibmec.todo.model;
 
 import java.util.List;
-import java.util.UUID;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,7 @@ public class Cartao {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public UUID id;
+    public int id;
 
     @Column
     public Boolean ativo;
@@ -33,11 +33,11 @@ public class Cartao {
     public List<Transacao> transacoes;
 
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

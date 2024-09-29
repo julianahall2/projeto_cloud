@@ -1,7 +1,7 @@
 package br.edu.ibmec.todo.model;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,7 +15,7 @@ import lombok.Data;
 public class Transacao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public UUID id;
+    public int id;
 
     @Column
     public LocalDateTime dataTransacao;
@@ -26,11 +26,11 @@ public class Transacao {
     @Column
     public String comerciante;
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
     
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
