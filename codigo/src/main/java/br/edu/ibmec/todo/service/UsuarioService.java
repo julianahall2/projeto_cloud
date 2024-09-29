@@ -1,6 +1,5 @@
 package br.edu.ibmec.todo.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,17 @@ public class UsuarioService {
         database.add(usuario);
 
         return usuario;
+    }
+
+    public Usuario salvarUsuario(Usuario usuario) {
+        usuario.setId(UUID.randomUUID()); 
+        database.add(usuario);
+        return usuario;
+    }
+
+    // Método para listar todos os usuários
+    public List<Usuario> listarUsuarios() {
+        return database;
     }
 
     public Usuario buscaUsuario(UUID id) {
