@@ -44,4 +44,12 @@ public class Cartao {
     public void setNumero(String numero){
         this.numero = numero;
     }
+
+    public List<Transacao> getTransacoes(){
+        return transacoes;
+    }
+
+    public void setTransacoes(List<Transacao> transacoes){
+        this.transacoes = transacoes;
+    }
 }

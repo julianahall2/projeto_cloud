@@ -16,6 +16,7 @@ import java.util.List;
 public class TodoController {
     private static List<Todo> Todos = new ArrayList<>();
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @GetMapping
     public ResponseEntity<List<Todo>> getTodo() {
         return new ResponseEntity(Todos, HttpStatus.OK);
