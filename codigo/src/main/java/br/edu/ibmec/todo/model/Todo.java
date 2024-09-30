@@ -1,5 +1,7 @@
 package br.edu.ibmec.todo.model;
 
+import org.hibernate.validator.constraints.UUID;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -7,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class Todo {
-    private int id;
+    private UUID id;
 
     @NotBlank (message = "Campo do nome é obrgatório")
     private String name;

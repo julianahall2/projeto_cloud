@@ -6,7 +6,7 @@ import br.edu.ibmec.todo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,7 +16,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNasc )throws Exception {
+    public Usuario criarUsuario(String nome, String cpf, LocalDate dataNasc )throws Exception {
         Usuario usuario = new Usuario();
         
         if (!usuario.validarCPF(cpf)) {

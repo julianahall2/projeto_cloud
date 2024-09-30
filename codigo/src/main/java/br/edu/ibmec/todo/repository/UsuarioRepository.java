@@ -12,4 +12,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
     
     @Query("SELECT u FROM Usuario u JOIN u.cartoes c WHERE c.id = ?1")
     Usuario findUsuariobyCartao(UUID id_cartao);
+    
 }

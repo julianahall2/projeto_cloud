@@ -4,6 +4,7 @@ package br.edu.ibmec.todo.controller;
 import br.edu.ibmec.todo.model.Todo;
 import jakarta.validation.Valid;
 
+import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class TodoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Todo> getTodoById(@PathVariable("id") int id) {
+    public ResponseEntity<Todo> getTodoById(@PathVariable("id") UUID id) {
         Todo response = null;
 
         for (Todo todo : Todos) {
@@ -48,7 +49,7 @@ public class TodoController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Todo> updateTodo(@PathVariable("id") int id, @Valid @RequestBody Todo novosDados) {
+    public ResponseEntity<Todo> updateTodo(@PathVariable("id") UUID id, @Valid @RequestBody Todo novosDados) {
         Todo todoASerAtualizado = null;
 
         for (Todo todo : Todos) {
@@ -74,7 +75,7 @@ public class TodoController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Todo> deleteTodo(@PathVariable("id") int id) {
+    public ResponseEntity<Todo> deleteTodo(@PathVariable("id") UUID id) {
         Todo todoASerExcluido = null;
 
         for (Todo todo : Todos) {

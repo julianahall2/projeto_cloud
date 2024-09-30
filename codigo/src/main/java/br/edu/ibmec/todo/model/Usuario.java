@@ -1,6 +1,7 @@
 package br.edu.ibmec.todo.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -13,12 +14,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Usuario {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @NotBlank(message = "O id é obrigatório")
+    @GeneratedValue(strategy = GenerationType.AUTO) 
     private UUID id;
 
     @Column
@@ -39,8 +40,8 @@ public class Usuario {
     private String cpf;
 
     @Column
-    @NotBlank(message = "A data de nascimento é obrigatória")
-    private LocalDateTime dataNasc;
+    @NotNull(message = "A data de nascimento é obrigatória")
+    private LocalDate dataNasc;
 
     @OneToMany
     @JoinColumn(referencedColumnName = "id", name = "usuario_id")
@@ -92,11 +93,11 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public LocalDateTime getDataNasc() {
+    public LocalDate getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(LocalDateTime dataNasc) {
+    public void setDataNasc(LocalDate dataNasc) {
         this.dataNasc = dataNasc;
     }
 
