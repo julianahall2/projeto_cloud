@@ -1,16 +1,14 @@
 package br.edu.ibmec.todo.model;
 
 import java.util.List;
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-
 
 @Entity
 public class Cartao {
@@ -32,6 +30,12 @@ public class Cartao {
     @JoinColumn(referencedColumnName = "id", name = "cartao_id")
     public List<Transacao> transacoes;
 
+    // Relacionamento com o Usuário (muitos cartões para um usuário)
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;  // Adiciona a associação com o Usuário
+
+    // Getters e Setters para os atributos existentes
 
     public int getId() {
         return id;
@@ -71,5 +75,14 @@ public class Cartao {
 
     public void setTransacoes(List<Transacao> transacoes){
         this.transacoes = transacoes;
+    }
+
+    // Novo método para acessar o usuário associado ao cartão
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

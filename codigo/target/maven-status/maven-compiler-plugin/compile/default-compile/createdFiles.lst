@@ -1,1 +1,17 @@
+br\edu\ibmec\todo\exception\ValidationErrorAdvice.class
+br\edu\ibmec\todo\service\TransacaoService.class
+br\edu\ibmec\todo\controller\TodoController.class
+br\edu\ibmec\todo\exception\ValidationMessageErrors.class
+br\edu\ibmec\todo\model\Todo.class
+br\edu\ibmec\todo\model\Cartao.class
+br\edu\ibmec\todo\service\EmailService.class
+br\edu\ibmec\todo\controller\UsuarioController.class
+br\edu\ibmec\todo\exception\ValidationError.class
 br\edu\ibmec\todo\TodoApplication.class
+br\edu\ibmec\todo\exception\UsuarioException.class
+br\edu\ibmec\todo\service\UsuarioService.class
+br\edu\ibmec\todo\model\Transacao.class
+br\edu\ibmec\todo\repository\TransacaoRepository.class
+br\edu\ibmec\todo\repository\UsuarioRepository.class
+br\edu\ibmec\todo\model\Usuario.class
+br\edu\ibmec\todo\repository\CartaoRepository.class
