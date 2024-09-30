@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Entity
@@ -25,6 +27,10 @@ public class Transacao {
 
     @Column
     public String comerciante;
+
+    @ManyToOne 
+    @JoinColumn(name = "cartao_id") 
+    private Cartao cartao;
 
     public int getId() {
         return id;
@@ -48,6 +54,14 @@ public class Transacao {
     
     public void setValor(double valor) {
         this.valor = valor;
+    }
+
+    public Cartao getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(Cartao cartao) {
+        this.cartao = cartao;
     }
 }
 

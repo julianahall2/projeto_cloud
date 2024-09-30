@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.hibernate.validator.constraints.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/todo")
+@Validated
 public class TodoController {
     private static List<Todo> Todos = new ArrayList<>();
 
@@ -42,11 +44,13 @@ public class TodoController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Todo> saveTodo (@Valid @RequestBody Todo todo) {
-        Todos.add(todo);
-        return new ResponseEntity<>(todo, HttpStatus.CREATED);
-    }
+    @PostMapping(consumes = "application/json", produces = "application/json")
+public ResponseEntity<Todo> saveTodo (@Valid @RequestBody Todo todo) {
+    Todos.add(todo);
+    return new ResponseEntity<>(todo, HttpStatus.CREATED);
+}
+
+    
 
     @PutMapping("{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable("id") UUID id, @Valid @RequestBody Todo novosDados) {

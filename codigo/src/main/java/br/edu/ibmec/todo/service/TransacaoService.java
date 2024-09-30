@@ -20,8 +20,8 @@ public class TransacaoService {
 
     @Autowired
     private CartaoRepository cartaoRepository;
-    @Autowired
-    private EmailService emailService; // Adicione o serviço de e-mail
+
+ 
 
 
     private final long TRANSACTION_TIME_INTERVAL = 3;
@@ -63,7 +63,7 @@ public class TransacaoService {
             String assunto = "Notificação de Transação";
             String texto = "Uma transação de " + valor + " foi realizada no comerciante " + comerciante;
         
-            emailService.enviarEmail(emailUsuario, assunto, texto);
+            //emailService.enviarEmail(emailUsuario, assunto, texto);
         
             
 
