@@ -20,6 +20,9 @@ public class TransacaoService {
 
     @Autowired
     private CartaoRepository cartaoRepository;
+    @Autowired
+    private EmailService emailService; // Adicione o serviço de e-mail
+
 
     private final long TRANSACTION_TIME_INTERVAL = 3;
 
@@ -55,6 +58,14 @@ public class TransacaoService {
 
         //Atualiza a base de dados com a nova transação para o cartao e atualiza o limite
         cartaoRepository.save(cartao);
+                // Enviar notificação de transação por e-mail
+            String emailUsuario = cartao.getUsuario().getEmail();  // Assumindo que o cartão tem um usuário associado
+            String assunto = "Notificação de Transação";
+            String texto = "Uma transação de " + valor + " foi realizada no comerciante " + comerciante;
+        
+            emailService.enviarEmail(emailUsuario, assunto, texto);
+        
+            
 
         return transacao;
 
@@ -71,10 +82,19 @@ public class TransacaoService {
                 .filter(x -> x.getDataTransacao().isAfter(localDateTime))
                 .toList();
 
-        if (ultimasTransacoes.size() >= 3) {
+        if (ultimasTransacoes.size() >= 2) {
             throw new Exception("Cartão utilizado muitas vezes em um período curto");
         }
 
+
+    List<Transacao> transacoesDuplicadas = cartao.getTransacoes().stream()
+        .filter(t -> t.getDataTransacao().isAfter(localDateTime))
+        .filter(t -> t.getValor() == valor && t.getComerciante().equals(comerciante))
+        .toList();
+
+    if (transacoesDuplicadas.size() >= 2) {
+    throw new Exception("Transação duplicada");
     }
 
+}
 }

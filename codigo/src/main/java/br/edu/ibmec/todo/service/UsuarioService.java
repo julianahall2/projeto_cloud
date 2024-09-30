@@ -1,18 +1,22 @@
 package br.edu.ibmec.todo.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import org.springframework.stereotype.Service;
 import br.edu.ibmec.todo.model.Cartao;
 import br.edu.ibmec.todo.model.Usuario;
+import br.edu.ibmec.todo.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsuarioService {
-    private static List<Usuario> database = new ArrayList<>();
 
-    public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNascimento) throws Exception {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public Usuario criarUsuario(String nome, String cpf, LocalDateTime dataNasc )throws Exception {
         Usuario usuario = new Usuario();
         
         if (!usuario.validarCPF(cpf)) {
@@ -21,34 +25,30 @@ public class UsuarioService {
 
         usuario.setCPF(cpf);
         usuario.setNome(nome);
-        usuario.setDataNasc(dataNascimento);
+        usuario.setDataNasc(dataNasc);
         usuario.setId(UUID.randomUUID());
         
-        database.add(usuario);
-
-        return usuario;
+        return usuarioRepository.save(usuario);  // Persistindo o usuário no banco
     }
 
     public Usuario salvarUsuario(Usuario usuario) throws Exception {
         if (!usuario.validarCPF(usuario.getCPF())) {
             throw new Exception("CPF inválido!");
         }
-        
-        usuario.setId(UUID.randomUUID()); 
-        database.add(usuario);
-        return usuario;
+
+        return usuarioRepository.save(usuario);  // Salvando no banco de dados
     }
 
     public List<Usuario> listarUsuarios() {
-        return database;
+        return usuarioRepository.findAll();  // Buscando do banco de dados
     }
 
     public Usuario buscaUsuario(UUID id) {
-        return this.findUsuario(id);
+        return usuarioRepository.findById(id).orElse(null);  // Buscando usuário no banco
     }
 
     public void associarCartao(Cartao cartao, UUID id) throws Exception {
-        Usuario usuario = this.findUsuario(id);
+        Usuario usuario = buscaUsuario(id);
 
         if (usuario == null) {
             throw new Exception("Não encontrei o usuario");
@@ -59,12 +59,6 @@ public class UsuarioService {
         }
 
         usuario.associarCartao(cartao);
-    }
-
-    private Usuario findUsuario(UUID id) {
-        return database.stream()
-                       .filter(u -> u.getId().equals(id))
-                       .findFirst()
-                       .orElse(null);
+        usuarioRepository.save(usuario);  // Salvando a associação no banco
     }
 }
