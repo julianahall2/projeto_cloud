@@ -25,6 +25,7 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+    @SuppressWarnings("null")
     @PostMapping
     public ResponseEntity<Usuario> criarUsuario(@Valid @RequestBody Usuario usuario) {
         try {
